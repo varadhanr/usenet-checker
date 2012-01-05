@@ -53,7 +53,7 @@
 			<br />
 			<img src="images/lala.png" alt="" />
 			<p style="font:icon;">
-				<a href="http://tamcore.eu" target="_blank">TamCore</a> | <a href="http://eddy.uni.cx" target="_blank">the|eddy</a>
+				<a href="http://tamcore.eu" target="_blank">TamCore</a>
 			</p>
 		</div>
 	</body>
