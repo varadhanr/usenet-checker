@@ -44,13 +44,13 @@ function getMulti() {
         var myTa = document.getElementById("text").value;
         var taRows = myTa.split("\n");
         if (taRows.length > 10) {
-            alert("Mehr als 10 Accounts geht nicht, sry!");
+            alert("Mehr als 10 Accounts geht nicht!");
         } else {
             for (i = 0; i < taRows.length; i++) {
                 var x = taRows[i].split(":");
                 if (typeof x[1] != 'undefined') {
                     if (x[0] != "") {
-                        var getstr = "?acc" + "=" + x[0] + "&pwd=" + x[1];
+                        var getstr = "?acc" + "=" + x[0] + "&pwd=" + x[1] + "&srv=" + x[2];
                         doMulti(getstr);
                     }
                 }

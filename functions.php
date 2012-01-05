@@ -1,21 +1,35 @@
 <?php
         function _check($user, $pass, $host, $port = 119)
         {
-                $fp = fsockopen($host, $port, $errno, $errstr, 5);
+                $fp = @fsockopen($host, $port, $errno, $errstr, 5);
                 if (!$fp)
                 {
                         die("$errstr ($errno)\n");
                 }
                 else
                 {
-                        $data = "AUTHINFO USER ".$user."\r\n";
-                        $data .= "AUTHINFO PASS ".$pass."\r\n";
-                        $data .= "QUIT\r\n";
-                        fwrite($fp, $data);
+			stream_set_timeout($fp, 2);
+
+			fwrite($fp, "AUTHINFO USER ".$user."\r\n");
+			fwrite($fp, "AUTHINFO PASS ".$pass."\r\n");
+			fwrite($fp, "QUIT\r\n");
+
                         while (!feof($fp))
                         {
                                 $data = fgets($fp, 128);
-                                if ($ret = _parse($data)) return $ret;
+				$info = stream_get_meta_data($fp);
+				if ($info['timed_out'])
+				{
+					$fin[0] = 'ERROR';
+					$fin[1] = 'Connection timed out!';
+					return serialize($fin);
+				}
+				elseif ($ret = _parse($data))
+				{
+					$fin[0] = 'OK';
+					$fin[1] = $ret;
+					return serialize($fin);
+				}
                         }
                 }
         }

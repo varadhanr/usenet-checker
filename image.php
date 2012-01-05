@@ -6,10 +6,11 @@
 
         $user = base64_decode($_GET['acc']);
         $pass = base64_decode($_GET['pwd']);
-        $data = _check($user, $pass);
-        if (is_numeric($data))
+	$host = base64_decode($_GET['srv']);
+	$data = unserialize(_check($user, $pass, $host));
+        if ($data[0] == 'OK')
         {
-                $traffic = round(($data / 1000 / 1000 / 1000)).' GB';
+                $traffic = round(($data[1] / 1000 / 1000 / 1000)).' GB';
 		$r = 8;
 		$g = 137;
 		$b = 8;
@@ -18,7 +19,7 @@
         }
         else
         {
-                $traffic = $data;
+                $traffic = $data[0];
 		$r = 255;
 		$g = 0;
 		$b = 0;

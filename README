@@ -1,3 +1,6 @@
 Requirements:
 fsockopen
 php-gd (for graphic generation)
+
+Todo:
+handle timeouts while receiving data from "incompatible" newsservers

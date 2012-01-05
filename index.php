@@ -25,6 +25,10 @@
 							<td><input class="box" type="text" name="pwd" id="pwd" value="" /></td>
 						</tr>
 						<tr>
+							<td>Server (kein SSL, aktuell nur Port 119): </td>
+							<td><input class="box" type="text" name="srv" id="srv" value="" /></td>
+						</tr>
+						<tr>
 							<td align="center" colspan="2"><input class="button" type="submit" value="Check" /></td>
 						</tr>
 					</table>
@@ -38,8 +42,8 @@
 							<td>Maximal 10 Accounts!</td>
 						</tr>
 						<tr>
-							<td>Accounts: </td>
-							<td><textarea style="border:1px solid #7F7F7F;" cols="25" rows="10" id="text" name="text">user:pass</textarea></td>
+							<td>Accounts (aktuell kein SSL und nur Port 119): </td>
+							<td><textarea style="border:1px solid #7F7F7F;" cols="25" rows="10" id="text" name="text">user:pass:server</textarea></td>
 						</tr>
 						<tr>
 							<td></td>

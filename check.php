@@ -3,15 +3,21 @@
 
 	$user = $_GET['acc'];
 	$pass = $_GET['pwd'];
-	$data = _check($user, $pass); 
-	if (is_numeric($data)) 
+	$host = $_GET['srv'];
+	$data = unserialize(_check($user, $pass, $host));
+	if ($data[0] == 'OK')
 	{
 		$status = 'OK';
-		$traffic = round(($data / 1000 / 1000)) . ' MB'.' / '.round(($data / 1000 / 1000 / 1000)) . ' GB';
+		$traffic = round(($data / 1000 / 1000)) . ' MB'.' / '.round(($data[1] / 1000 / 1000 / 1000)) . ' GB';
 	}
-	else 
+	elseif ($data[0] == 'ERROR')
 	{
-		$status = $data;
+		$status = $data[1];
+		$traffic = 0;
+	}
+	else
+	{
+		$status = $data[0];
 		$traffic = 0;
 	}
 ?>
@@ -28,6 +34,11 @@
 		<td><b><?=$pass?></b></td>
 	</tr>
 	<tr>
+		<td align="left">Server</td>
+		<td>:</td>
+		<td><b><?=$host?></b></td>
+	</tr>
+	<tr>
 		<td align="left">Status</td>
 		<td>:</td>
 		<td><b><?=$status?></b></td>
@@ -39,10 +50,11 @@
 		<td><b><?=$traffic?></b></td>
 	</tr>
 <?php 
-} 
+}
 	$user = base64_encode($user);
 	$pass = base64_encode($pass);
-	$img = sprintf('image.php?acc=%s=&pwd=%s', $user, $pass);
+	$host = base64_encode($host);
+	$img = sprintf('image.php?acc=%s=&pwd=%s&srv=%s', $user, $pass, $host);
 ?>
 	<tr>
 		<td align="left">Image</td>
@@ -53,8 +65,8 @@
 		<td align="left">BBCode</td>
 		<td>:</td>
 <?php
-	$bbcode = '[url=http://%s/][img]http://%s/image.php?acc=%s=&pwd=%s[/img][/url]';
-	$bbcode = sprintf($bbcode, $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME'], $user, $pass);
+	$bbcode = '[url=http://%s/][img]http://%s/image.php?acc=%s=&pwd=%s&srv=%s[/img][/url]';
+	$bbcode = sprintf($bbcode, $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME'], $user, $pass, $host);
 ?>
 		<td><input class="box" type="text" value="<?=$bbcode?>" onmouseover="high(this)" onclick="high(this)" /></td>
 	</tr>
