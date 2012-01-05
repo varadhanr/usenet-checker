@@ -1,5 +1,5 @@
 <?php
-        function _check($user, $pass, $host = 'news.news-service.com', $port = 119)
+        function _check($user, $pass, $host, $port = 119)
         {
                 $fp = fsockopen($host, $port, $errno, $errstr, 5);
                 if (!$fp)
